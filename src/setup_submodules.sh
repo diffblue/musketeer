@@ -24,7 +24,7 @@ then
     then
       # Fork not found - add it
       echo Adding fork "${fork}"
-      git remote add "${fork}" "git@github.com:$fork/cbmc.git"
+      git remote add "${fork}" "https://github.com/${fork}/cbmc.git"
     fi
 
     # Fetch all the forks to ensure we are up to date
