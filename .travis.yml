@@ -92,4 +92,12 @@ install:
   - ccache --max-size=1G
   - perl -pe 's/git\@github.com:/https:\/\/github.com\//' -i .gitmodules
   - make -C src setup-cbmc
-  - make -C src "CXX=${COMPILER}" "CXXFLAGS=-Wall -Werror -pedantic -O2 -g ${EXTRA_CXXFLAGS}" -j2
+  - |
+    # Compile for test builds
+    ( set -euo pipefail
+      if [[ "${BUILD_PURPOSE}" =~ ^(test)$ ]]
+      then
+        make -C src "CXX=${COMPILER}" "CXXFLAGS=-Wall -Werror -pedantic -O2 -g" -j2
+      fi
+      set +u
+    )
