@@ -9,9 +9,6 @@ jobs:
     # CPP linter script
     - &linter-stage
       stage: test ubuntu + gcc compilation with extra flags for debug + Linter
-      env:
-      - NAME="CPP-LINT"
-      - BUILD_PURPOSE="lint"
       addons:
         apt:
           packages:
@@ -19,6 +16,8 @@ jobs:
       script:
         - cp -r lib/cbmc/scripts . && scripts/travis_lint.sh
       before_cache:
+      env:
+        - BUILD_PURPOSE="lint"
 
     # Test - Ubuntu Linux with glibc using g++-5
     - stage: test ubuntu + gcc compilation with extra flags for debug + Linter
@@ -33,16 +32,12 @@ jobs:
             - ubuntu-toolchain-r-test
           packages:
             - libwww-perl
-            - libthread-pool-simple-perl
             - g++-5
-            - libubsan0
-            - parallel
       before_install:
         - mkdir bin ; ln -s /usr/bin/gcc-5 bin/gcc
       env:
         - COMPILER="ccache g++-5"
         - BUILD_PURPOSE="test"
-        - OS="ubuntu"
 
     # Test - OS X using g++
     - stage: compile with extra flags for debug
@@ -51,13 +46,11 @@ jobs:
       compiler: gcc
       cache: ccache
       before_install:
-        - HOMEBREW_NO_AUTO_UPDATE=1 brew install jq ccache parallel cpanm
-        - sudo cpanm Thread::Pool::Simple
+        - HOMEBREW_NO_AUTO_UPDATE=1 brew install jq ccache
         - export PATH=/usr/local/opt/ccache/libexec:$PATH
       env:
         - COMPILER="ccache g++"
         - BUILD_PURPOSE="test"
-        - OS="osx"
 
     # Test - OS X using clang++
     - stage: compile with extra flags for debug
@@ -66,13 +59,11 @@ jobs:
       compiler: clang
       cache: ccache
       before_install:
-        - HOMEBREW_NO_AUTO_UPDATE=1 brew install jq ccache parallel cpanm
-        - sudo cpanm Thread::Pool::Simple
+        - HOMEBREW_NO_AUTO_UPDATE=1 brew install jq ccache
         - export PATH=/usr/local/opt/ccache/libexec:$PATH
       env:
         - COMPILER="ccache clang++ -Qunused-arguments -fcolor-diagnostics"
         - BUILD_PURPOSE="test"
-        - OS="osx"
 
     # Test - Ubuntu Linux with glibc using clang++-3.7
     - stage: compile with extra flags for debug
@@ -88,18 +79,14 @@ jobs:
             - llvm-toolchain-precise-3.7
           packages:
             - libwww-perl
-            - libthread-pool-simple-perl
             - clang-3.7
             - libstdc++-5-dev
-            - libubsan0
-            - parallel
       before_install:
         - mkdir bin ; ln -s /usr/bin/clang-3.7 bin/gcc
       env:
         - COMPILER="ccache clang++-3.7 -Qunused-arguments -fcolor-diagnostics"
         - BUILD_PURPOSE="test"
         - CCACHE_CPP2=yes
-        - OS="ubuntu"
 
 install:
   - ccache --max-size=1G
