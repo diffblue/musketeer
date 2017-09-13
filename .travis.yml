@@ -91,6 +91,30 @@ jobs:
 install:
   - ccache --max-size=1G
   - perl -pe 's/git\@github.com:/https:\/\/github.com\//' -i .gitmodules
+  - |
+    # Fetch forks. If this is a PR or a master/develop branch, CBMC submodule has to refer to
+    # 'diffblue/cbmc' not to a fork so no need to fetch anything
+    set -euo pipefail
+    if [[ "${TRAVIS_PULL_REQUEST}" == "false" && ! ( "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" =~ ^(master|develop)$ ) ]]
+    then
+      # Get list of all contributors who have cbmc forks, to fetch these.
+      CONTRIBUTORS=$(mktemp)
+      # Note: the following curl might not return all entries
+      # if there is too many contributors/forks, so we might need
+      # to adapt this as DiffBlue grows :-)
+      curl -H "Authorization: token ${GITHUB_TOKEN}" \
+          "https://api.github.com/repos/diffblue/musketeer/contributors?per_page=100" \
+        | jq -r '.[] | .login' \
+        | sort > ${CONTRIBUTORS}
+
+      export USERS
+      USERS=$(cat ${CONTRIBUTORS} | tr "\n" " ")
+
+      echo "List of forks to pull >${USERS}<"
+    else
+      echo "No forks will be fetched"
+    fi
+    set +u
   - make -C src setup-cbmc
   - |
     # Compile for test builds
