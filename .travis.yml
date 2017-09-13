@@ -125,3 +125,5 @@ install:
       fi
       set +u
     )
+
+script: true
