@@ -38,7 +38,7 @@ It is recommend to add your fork in this way.
 Output
 ======
 
-Compiling produces an executable called test-generator which by default can be found in `src/musketeer/musketeer`
+Compiling produces an executable called musketeer which by default can be found in `src/musketeer/musketeer`
 
 Report bugs
 ===========
