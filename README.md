@@ -5,7 +5,7 @@
 About
 =====
 
-Modern architectures rely on memory fences to prevent undesired weakenings of memory consistency between threads. As both the semantics of the program under these architectures and the semantics of these fences may be subtle, the automation of their placement is highly desirable. However, precise methods to restore strong consistency do not scale to the size of deployed systems code. We choose to trade some precision for genuine scalability: we present a novel technique suitable for interprocedural analysis of large code bases. We implement this method in our musketeer tool, and detail experiments on more than 350 executables of packages found in a Debian Linux distribution, e.g. memcached (about 10000 LoC).
+Musketeer is a tool to automatically insert memory fences to prevent undesired weakenings of memory consistency between threads. 
 
 For full information see [cprover.org](http://www.cprover.org/wmm/musketeer/).
 
