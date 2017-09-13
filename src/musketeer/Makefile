@@ -12,37 +12,37 @@ SRC = cycles_visitor.cpp \
       propagate_const_function_pointers.cpp \
       # Empty last line
 
-OBJ += ../ansi-c/ansi-c$(LIBEXT) \
-      ../linking/linking$(LIBEXT) \
-      ../big-int/big-int$(LIBEXT) \
-      ../goto-programs/goto-programs$(LIBEXT) \
-      ../goto-symex/goto-symex$(LIBEXT) \
-      ../assembler/assembler$(LIBEXT) \
-      ../pointer-analysis/pointer-analysis$(LIBEXT) \
-      ../analyses/analyses$(LIBEXT) \
-      ../langapi/langapi$(LIBEXT) \
-      ../util/util$(LIBEXT) \
-      ../solvers/solvers$(LIBEXT) \
-      ../goto-instrument/wmm/weak_memory$(OBJEXT) \
-      ../goto-instrument/wmm/fence$(OBJEXT) \
-      ../goto-instrument/wmm/event_graph$(OBJEXT) \
-      ../goto-instrument/wmm/goto2graph$(OBJEXT) \
-      ../goto-instrument/wmm/data_dp$(OBJEXT) \
-      ../goto-instrument/wmm/abstract_event$(OBJEXT) \
-      ../goto-instrument/wmm/instrumenter_strategies$(OBJEXT) \
-      ../goto-instrument/wmm/cycle_collection$(OBJEXT) \
-      ../goto-instrument/wmm/shared_buffers$(OBJEXT) \
-      ../goto-instrument/wmm/pair_collection$(OBJEXT) \
-      ../goto-instrument/rw_set$(OBJEXT)
+OBJ += ../../$(CPROVER_DIR)/ansi-c/ansi-c$(LIBEXT) \
+      ../../$(CPROVER_DIR)/linking/linking$(LIBEXT) \
+      ../../$(CPROVER_DIR)/big-int/big-int$(LIBEXT) \
+      ../../$(CPROVER_DIR)/goto-programs/goto-programs$(LIBEXT) \
+      ../../$(CPROVER_DIR)/goto-symex/goto-symex$(LIBEXT) \
+      ../../$(CPROVER_DIR)/assembler/assembler$(LIBEXT) \
+      ../../$(CPROVER_DIR)/pointer-analysis/pointer-analysis$(LIBEXT) \
+      ../../$(CPROVER_DIR)/analyses/analyses$(LIBEXT) \
+      ../../$(CPROVER_DIR)/langapi/langapi$(LIBEXT) \
+      ../../$(CPROVER_DIR)/util/util$(LIBEXT) \
+      ../../$(CPROVER_DIR)/solvers/solvers$(LIBEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/wmm/weak_memory$(OBJEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/wmm/fence$(OBJEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/wmm/event_graph$(OBJEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/wmm/goto2graph$(OBJEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/wmm/data_dp$(OBJEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/wmm/abstract_event$(OBJEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/wmm/instrumenter_strategies$(OBJEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/wmm/cycle_collection$(OBJEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/wmm/shared_buffers$(OBJEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/wmm/pair_collection$(OBJEXT) \
+      ../../$(CPROVER_DIR)/goto-instrument/rw_set$(OBJEXT)
 
-INCLUDES= -I ..
+INCLUDES= -I .. -I ../../$(CPROVER_DIR)
 
 LIBS =
 
 CLEANFILES = musketeer$(EXEEXT)
 
-include ../config.inc
-include ../common
+include ../../$(CPROVER_DIR)/config.inc
+include ../../$(CPROVER_DIR)/common
 
 all: musketeer$(EXEEXT)
 
