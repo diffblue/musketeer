@@ -14,7 +14,9 @@ jobs:
           packages:
             - libwww-perl
       script:
-        - cp -r lib/cbmc/scripts . && scripts/travis_lint.sh
+        - cp -r lib/cbmc/scripts .
+          && sed -i '/git fetch --unshallow/d' scripts/travis_lint.sh
+          && scripts/travis_lint.sh
       before_cache:
       env:
         - BUILD_PURPOSE="lint"
